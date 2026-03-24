@@ -1,0 +1,563 @@
+/* ===== HERO SECTION - Exact Replica of Reference Image ===== */
+
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 700px;
+  /* Fallback for very short screens */
+  background: #0d0d0d;
+  /* Slightly off-black */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-container {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 40px;
+  width: 100%;
+}
+
+/* ===== Top Black Section ===== */
+.hero-top-section {
+  padding-top: 120px;
+  /* Reduced to fit in 100vh */
+  padding-bottom: 20px;
+  background: #0d0d0d;
+}
+
+.hero-title {
+  font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  font-size: clamp(70px, 13vw, 200px);
+  /* Massive to fill space naturally */
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -5px;
+  color: #eeeeee;
+  text-transform: uppercase;
+  margin: 0 0 30px 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0;
+  width: 100%;
+  min-height: clamp(60px, 11vw, 170px);
+  /* Locks height so layout doesn't jump */
+  transition: font-size 0.2s ease-in-out;
+}
+
+.hero-title-long {
+  font-size: clamp(35px, 6vw, 95px) !important;
+  letter-spacing: -1px;
+}
+
+.title-word {
+  transform: scaleY(1.1);
+  display: inline-block;
+  word-spacing: 2vw;
+  /* Creates spacing between words naturally since we removed gap */
+}
+
+.typing-cursor {
+  font-weight: 300;
+  color: #50cbb6;
+  /* Teal accent color matching MLOps badge */
+  animation: blink 1s step-end infinite;
+  display: inline-block;
+  transform: scaleY(1.1) translateY(-4px);
+  margin-left: 10px;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Three columns layout for intro */
+.hero-intro-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+.intro-col {
+  flex: 1;
+  max-width: 480px;
+  /* Expanded intro column */
+  font-size: 13px;
+  line-height: 1.6;
+  color: #b0b0b0;
+  margin: 0;
+}
+
+.intro-cta {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.hero-cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #eeeeee;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-bottom: 1px solid #eeeeee;
+  padding-bottom: 2px;
+  transition: opacity 0.3s;
+}
+
+.hero-cta-button:hover {
+  opacity: 0.7;
+}
+
+.hero-cta-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: flex-end;
+}
+
+.hero-socials {
+  display: flex;
+  gap: 16px;
+}
+
+.hero-socials a {
+  color: #eeeeee;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.hero-socials a:hover {
+  opacity: 1;
+  color: #50cbb6; 
+  transform: translateY(-2px);
+}
+
+/* ===== Bottom Grid Shape Section ===== */
+.hero-bottom-section {
+  background: #0d0d0d;
+  padding: 0 40px 0px;
+  /* Matched padding of the text so left edge aligns */
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  /* Align the grid shape to bottom */
+}
+
+.hero-grid-shape {
+  background: #f2ede7;
+  /* Cream color */
+  border-radius: 0 350px 0 0;
+  /* Huge rounded corner just on right */
+  flex: 1;
+  /* Takes remaining height */
+  width: 95%;
+  /* almost full width, leaves a gap on right for the curve to pop out */
+  position: relative;
+  overflow: visible;
+  /* Changed to visible so person & badges can overlap the black area */
+  margin: 0 auto;
+  /* Removed left margin, container pads it */
+  z-index: 1;
+  /* Creates stacking context so grid lines don't bleed out or hide */
+}
+
+.grid-lines {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(#d1cdc5 1.5px, transparent 1.5px),
+    /* Made grid lines darker and thicker */
+    linear-gradient(90deg, #d1cdc5 1.5px, transparent 1.5px);
+  background-size: 85px 85px;
+  /* Large grid squares */
+  background-position: center top;
+  z-index: -1;
+  /* Placed cleanly behind badges and images */
+  pointer-events: none;
+  border-radius: 0 350px 0 0;
+  /* Match parent radius */
+  overflow: hidden;
+}
+
+/* Container to help structure the image and flash */
+.hero-img-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.hero-img-wrapper {
+  position: absolute;
+  bottom: 0px;
+  left: 55%;
+  /* Shifted right slightly to center visually */
+  transform: translateX(-50%);
+  height: clamp(500px, 85vh, 1200px);
+  /* Locked to vh */
+  display: inline-block;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.hero-person-img {
+  height: 100%;
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+  object-position: bottom;
+  filter: grayscale(100%);
+  /* Default B&W image */
+  pointer-events: none;
+}
+
+/* The actual physical intense light coming from the phone's lens area */
+.phone-camera-flash {
+  position: absolute;
+  /* Estimated coordinates for the flash dot on the phone relative to the image bounds */
+  left: 59.5%;
+  top: 33.5%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.9) 2%, rgba(255, 255, 255, 0.5) 10%, rgba(255, 255, 255, 0) 65%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 20;
+  /* Very front over the image */
+  opacity: 0;
+  mix-blend-mode: screen;
+  /* Ignites the area dramatically */
+  transition: opacity 0.25s ease-out, transform 0.25s ease-out;
+}
+
+.phone-camera-flash.flashing {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.5);
+  transition: opacity 0.05s ease-out, transform 0.02s ease-out;
+  /* Explodes instantly */
+}
+
+/* ============================================
+   FLOATING BADGES
+   ============================================ */
+
+.badge {
+  position: absolute;
+  z-index: 10;
+  animation: badgeFloat 6s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  text-transform: uppercase;
+  color: #000;
+}
+
+.badge-content strong {
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+
+/* Shapes & Colors */
+.badge-circle {
+  border-radius: 50%;
+}
+
+.badge-rect {
+  border-radius: 8px;
+}
+
+.badge-teal {
+  background: #50cbb6;
+  padding: 16px;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  text-align: center;
+}
+
+.badge-teal .badge-title {
+  font-size: 12px;
+  margin-bottom: 2px;
+}
+
+.badge-teal .badge-sub {
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.badge-icon-top {
+  margin-bottom: 2px;
+}
+
+.badge-icon-top svg {
+  width: 16px;
+  height: 16px;
+}
+
+.badge-yellow {
+  background: #ffd31a;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.badge-orange {
+  background: #ff8a00;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.badge-pink {
+  background: #ff477e;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.badge-cyan {
+  background: #57e8d2;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+/* Positions matching the new reference image precisely */
+
+/* 1. MLOps STRATEGY (teal circle) - crosses the top boundary line */
+.badge-1 {
+  left: 20%;
+  top: -40px;
+  /* Pulls it up into the black area */
+  transform: rotate(-5deg);
+  animation: none;
+}
+
+/* 2. COMPUTER VISION (yellow) - crosses left outer boundary */
+.badge-2 {
+  left: 20px;
+  /* Adjusted since shape is left-aligned */
+  top: 35%;
+  transform: rotate(-6deg);
+  animation-delay: 1.5s;
+}
+
+/* 3. NEURAL NET (orange) - bottom left inside */
+.badge-3 {
+  left: 14%;
+  bottom: 15%;
+  transform: rotate(-10deg);
+  animation-delay: 0.5s;
+}
+
+/* 4. DATA SCIENCE (pink) - mid right inside grid */
+.badge-4 {
+  right: 28%;
+  top: 20%;
+  transform: rotate(4deg);
+  animation-delay: 2s;
+}
+
+/* 5. LLM & GEN AI (cyan) - crosses right outer boundary */
+.badge-5 {
+  right: -40px;
+  /* Exploded out of the shape to the far right */
+
+  top: 40%;
+  transform: rotate(-15deg);
+  animation-delay: 1s;
+}
+
+/* 6. NLP RING (green) - bottom right */
+.badge-6 {
+  right: 18%;
+  bottom: 10%;
+  /* Higher up so it fits perfectly on screen */
+  animation-name: none;
+}
+
+.badge-ring-inner {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  background: #aae065;
+  border-radius: 50%;
+}
+
+.ring-text-svg {
+  width: 100%;
+  height: 100%;
+  animation: spinRing 20s linear infinite;
+}
+
+.ring-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  fill: #000;
+  letter-spacing: 2px;
+}
+
+.ring-center-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: #aae065;
+  border-radius: 50%;
+}
+
+.ring-center-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* ===== Animations ===== */
+@keyframes badgeFloat {
+
+  0%,
+  100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 0 -8px;
+  }
+}
+
+@keyframes spinRing {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ===== Responsive adjustments ===== */
+@media (max-width: 1024px) {
+  .hero-title {
+    font-size: clamp(60px, 12vw, 120px);
+  }
+
+  .hero-intro-row {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .intro-cta {
+    justify-content: flex-start;
+  }
+  
+  .hero-cta-wrapper {
+    align-items: flex-start;
+  }
+
+  .hero-grid-shape {
+    border-radius: 40px 40px 0 0;
+    height: 500px;
+  }
+
+  .grid-lines {
+    background-size: 60px 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    height: auto;
+    overflow: visible;
+  }
+  .hero-top-section {
+    padding-top: 100px;
+    padding-bottom: 60px; /* Big gap before image */
+  }
+  .hero-bottom-section {
+    height: 550px;
+    flex: none;
+  }
+  .hero-grid-shape {
+    border-radius: 40px 40px 0 0;
+    height: 100%;
+    width: 100%;
+  }
+  .hero-img-wrapper {
+    height: 500px;
+    bottom: 0px;
+  }
+  .hero-title {
+    font-size: clamp(40px, 15vw, 80px);
+    letter-spacing: -2px;
+  }
+  .badge {
+    transform: scale(0.5) !important;
+  }
+  
+  /* Manual repositioning for mobile to prevent face/text overlap */
+  .badge-1 { top: -20px; left: -5%; }
+  .badge-2 { top: 25%; left: -5%; }
+  .badge-3 { bottom: 15%; left: 0%; transform: rotate(-5deg) scale(0.5) !important; }
+  .badge-4 { top: 15%; right: 5%; transform: rotate(4deg) scale(0.5) !important; }
+  .badge-5 { top: 40%; right: -10%; }
+  .badge-6 { bottom: 5%; right: 5%; transform: scale(0.5) !important;}
+}
+
+@media (max-width: 480px) {
+  .hero-container {
+    padding: 0 16px;
+  }
+  .hero-bottom-section {
+    padding: 0 16px 0px;
+  }
+  .hero-title {
+    font-size: clamp(32px, 12vw, 60px);
+  }
+  .hero-intro-row {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero-container {
+    padding: 0 12px;
+  }
+  .hero-bottom-section {
+    padding: 0 12px 0px;
+  }
+}

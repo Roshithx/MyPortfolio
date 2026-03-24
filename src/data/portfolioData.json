@@ -1,0 +1,135 @@
+{
+  "profile": {
+    "name": "Roshith P",
+    "titles": ["AI ENGINEER", "FULL STACK DEVELOPER"],
+    "heroIntro": "I am a highly skilled AI Engineer with deep expertise in designing and deploying complex machine learning and deep learning solutions. My focus is on leveraging research and advanced algorithms to build intelligent, impactful AI systems.",
+    "aboutHeading": "Crafting digital experiences with code & data",
+    "summary": "Highly motivated AI Engineer and MERN Stack Developer with hands-on experience in building scalable intelligent systems and enterprise-level web applications. Skilled in designing and deploying complex machine learning and deep learning solutions using Python, TensorFlow, and PyTorch, combined with building robust full-stack features using MongoDB, Express.js, React.js, and Node.js. Focused on leveraging advanced algorithms and modern web technologies to build impactful, data-driven systems.",
+    "stats": [
+      { "label": "Years Experience", "value": "2+" },
+      { "label": "Projects Delivered", "value": "10+" },
+      { "label": "Technologies", "value": "7+" }
+    ],
+    "phone": "+91 6238428920",
+    "email": "roshithparakkatt@gmail.com",
+    "github": "https://github.com/Roshithx",
+    "linkedin": "https://www.linkedin.com/in/roshith-parakkat",
+    "location": "Kannur, Kerala"
+  },
+  "skills": [
+    {
+      "category": "AI Engineering",
+      "items": ["Machine Learning", "Deep Learning", "Computer Vision", "NLP & LLMs", "MLOps"]
+    },
+    {
+      "category": "MERN Stack",
+      "items": ["React.js", "Node.js", "Express.js", "MongoDB", "TypeScript"]
+    },
+    {
+      "category": "Databases",
+      "items": ["SQL", "MongoDB", "PostgreSQL"]
+    },
+    {
+      "category": "Tools & Languages",
+      "items": ["Python", "TensorFlow", "PyTorch", "JavaScript", "Git"]
+    },
+    {
+      "category": "Data Integration",
+      "items": ["REST APIs", "System Integration"]
+    },
+    {
+      "category": "Work Methodologies",
+      "items": ["Agile", "Scrum", "Cross-Functional Collaboration"]
+    }
+  ],
+  "experience": [
+    {
+      "id": "exp1",
+      "company": "Aabasoft Technologies",
+      "role": "Frontend Developer",
+      "location": "Kochi, Kerala, India",
+      "startDate": "01/2025",
+      "endDate": "09/2025",
+      "description": [
+        "Developed enterprise-level web applications using React.js, TypeScript, and Tailwind CSS.",
+        "Built reusable UI components and optimized application performance and responsiveness.",
+        "Integrated frontend modules with REST APIs and backend services.",
+        "Collaborated with UI/UX designers and QA teams to deliver production-ready features.",
+        "Followed Agile/Scrum methodology and participated in sprint planning and reviews."
+      ],
+      "keyProjects": [
+        "Nexus Finbook Global CRM – Developed frontend modules for CRM workflows and client management.",
+        "Aedas Datanest (RMS Platform) – Built UI components for resource allocation and project tracking.",
+        "DLIFE ERP Software – Worked on HRM, Payroll, and Client Management frontend modules."
+      ]
+    },
+    {
+      "id": "exp2",
+      "company": "Thirdeyeverse Technologies",
+      "role": "Database Developer",
+      "location": "Kannur, Kerala, India",
+      "startDate": "11/2023",
+      "endDate": "12/2024",
+      "description": [
+        "Designed and developed relational databases based on business and web application requirements.",
+        "Created optimized SQL queries, stored procedures, functions, and triggers.",
+        "Integrated database authentication systems and backend APIs.",
+        "Handled end-to-end backend integration based on client requirements."
+      ],
+      "keyProjects": [
+        "Morazha College Website CRM – Developed structural and integrated backend APIs for content management.",
+        "Client Web Applications – Delivered multiple responsive websites."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": "proj2",
+      "name": "Nexus Finbook Global CRM",
+      "type": "Enterprise",
+      "status": "Completed",
+      "description": "Frontend development for CRM workflows handling client management, financial tracking, and business operations.",
+      "tech": ["React.js", "TypeScript", "Tailwind CSS", "REST APIs"],
+      "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80",
+      "highlights": [
+        "Built reusable component library for consistent UI across modules.",
+        "Integrated real-time data from REST APIs for dynamic dashboards."
+      ]
+    },
+    {
+      "id": "proj3",
+      "name": "Aedas Datanest RMS Platform",
+      "type": "Enterprise",
+      "status": "Completed",
+      "description": "Resource Management System for tracking resource allocation, project timelines, and team management across the organization.",
+      "tech": ["React.js", "TypeScript", "Node.js", "SQL"],
+      "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80",
+      "highlights": [
+        "Developed resource allocation dashboard with drag-and-drop functionality.",
+        "Implemented secure team management workflows."
+      ]
+    },
+    {
+      "id": "proj4",
+      "name": "DLIFE ERP Software",
+      "type": "Enterprise",
+      "status": "Completed",
+      "description": "Comprehensive ERP system covering HRM, Payroll, and Client Management modules for interior design company.",
+      "tech": ["React.js", "Node.js", "Express", "SQL"],
+      "image": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80",
+      "highlights": [
+        "Built payroll calculation engine with automated tax computations.",
+        "Designed intuitive client management interface."
+      ]
+    }
+  ],
+  "education": [],
+  "contact": {
+    "phone": "+91 6238428920",
+    "email": "roshithparakkatt@gmail.com",
+    "github": "https://github.com/Roshithx",
+    "linkedin": "https://www.linkedin.com/in/roshith-parakkat",
+    "location": "Kannur, Kerala"
+  },
+  "heroSkillBadges": []
+}
