@@ -14,10 +14,15 @@ import './PortfolioPage.css';
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
+import { usePortfolioStore } from '../store/usePortfolioStore';
+
 export default function PortfolioPage() {
   const mainRef = useRef<HTMLDivElement>(null);
+  const isLoading = usePortfolioStore(state => state.isLoading);
 
   useEffect(() => {
+    if (isLoading) return;
+    
     const ctx = gsap.context(() => {
       // Parallax on hero grid background
       gsap.to('.hero-grid-bg', {
@@ -151,7 +156,16 @@ export default function PortfolioPage() {
     }, mainRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [isLoading]);
+
+  if (isLoading) {
+    return (
+      <div className="portfolio-loading">
+        <div className="loader"></div>
+        <p>Loading Portfolio...</p>
+      </div>
+    );
+  }
 
   return (
     <div ref={mainRef} className="portfolio-page">

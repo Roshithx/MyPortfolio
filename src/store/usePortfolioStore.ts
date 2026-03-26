@@ -77,54 +77,53 @@ export interface PortfolioData {
 }
 
 interface PortfolioStore extends PortfolioData {
-  updateProfile: (profile: Profile) => void;
-  updateSkills: (skills: SkillCategory[]) => void;
-  updateExperience: (experience: Experience[]) => void;
-  addExperience: (exp: Experience) => void;
-  deleteExperience: (id: string) => void;
-  updateProjects: (projects: Project[]) => void;
-  addProject: (project: Project) => void;
-  deleteProject: (id: string) => void;
-  updateEducation: (education: Education[]) => void;
-  addEducation: (edu: Education) => void;
-  deleteEducation: (id: string) => void;
-  updateContact: (contact: Contact) => void;
-  updateHeroBadges: (badges: HeroSkillBadge[]) => void;
+  isLoading: boolean;
+  initialize: () => Promise<void>;
+  updateProfile: (profile: Profile) => Promise<void>;
+  updateSkills: (skills: SkillCategory[]) => Promise<void>;
+  updateExperience: (experience: Experience[]) => Promise<void>;
+  addExperience: (exp: Experience) => Promise<void>;
+  deleteExperience: (id: string) => Promise<void>;
+  updateProjects: (projects: Project[]) => Promise<void>;
+  addProject: (project: Project) => Promise<void>;
+  deleteProject: (id: string) => Promise<void>;
+  updateEducation: (education: Education[]) => Promise<void>;
+  addEducation: (edu: Education) => Promise<void>;
+  deleteEducation: (id: string) => Promise<void>;
+  updateContact: (contact: Contact) => Promise<void>;
+  updateHeroBadges: (badges: HeroSkillBadge[]) => Promise<void>;
   exportData: () => string;
-  importData: (jsonString: string) => void;
-  resetToDefaults: () => void;
+  importData: (jsonString: string) => Promise<void>;
+  resetToDefaults: () => Promise<void>;
 }
 
-const STORAGE_KEY = 'portfolio_data';
-
-function loadData(): PortfolioData {
+async function fetchFromKV(): Promise<PortfolioData | null> {
   try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      const parsed = JSON.parse(stored);
-      // Merge with defaultData to ensure new fields (titles, stats, etc.) are present
-      return {
-        ...defaultData,
-        ...parsed,
-        profile: { ...defaultData.profile, ...parsed.profile },
-        contact: { ...defaultData.contact, ...parsed.contact }
-      } as PortfolioData;
-    }
+    const response = await fetch('/api/portfolio');
+    if (!response.ok) throw new Error('Failed to fetch');
+    const data = await response.json();
+    if (data.status === 'no_data') return null;
+    return data as PortfolioData;
   } catch (e) {
-    console.error('Failed to load portfolio data from localStorage:', e);
-  }
-  return defaultData as PortfolioData;
-}
-
-function saveData(data: PortfolioData) {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-  } catch (e) {
-    console.error('Failed to save portfolio data to localStorage:', e);
+    console.error('Error fetching from KV:', e);
+    return null;
   }
 }
 
-function getPortfolioData(state: PortfolioStore): PortfolioData {
+async function saveToKV(data: PortfolioData) {
+  try {
+    const response = await fetch('/api/portfolio', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    if (!response.ok) throw new Error('Failed to save');
+  } catch (e) {
+    console.error('Error saving to KV:', e);
+  }
+}
+
+function getPortfolioData(state: any): PortfolioData {
   return {
     profile: state.profile,
     skills: state.skills,
@@ -137,97 +136,115 @@ function getPortfolioData(state: PortfolioStore): PortfolioData {
 }
 
 export const usePortfolioStore = create<PortfolioStore>((set, get) => ({
-  ...loadData(),
+  ...defaultData as PortfolioData,
+  isLoading: true,
 
-  updateProfile: (profile) => {
+  initialize: async () => {
+    const kvData = await fetchFromKV();
+    if (kvData) {
+      // Merge with defaultData to ensure new fields are present
+      set({
+        ...defaultData,
+        ...kvData,
+        profile: { ...defaultData.profile, ...kvData.profile },
+        contact: { ...defaultData.contact, ...kvData.contact },
+        isLoading: false
+      });
+    } else {
+      set({ isLoading: false });
+    }
+  },
+
+  updateProfile: async (profile) => {
     set({ profile });
-    saveData({ ...getPortfolioData({ ...get(), profile }) });
+    await saveToKV(getPortfolioData(get()));
   },
 
-  updateSkills: (skills) => {
+  updateSkills: async (skills) => {
     set({ skills });
-    saveData({ ...getPortfolioData({ ...get(), skills }) });
+    await saveToKV(getPortfolioData(get()));
   },
 
-  updateExperience: (experience) => {
+  updateExperience: async (experience) => {
     set({ experience });
-    saveData({ ...getPortfolioData({ ...get(), experience }) });
+    await saveToKV(getPortfolioData(get()));
   },
 
-  addExperience: (exp) => {
+  addExperience: async (exp) => {
     const experience = [...get().experience, exp];
     set({ experience });
-    saveData({ ...getPortfolioData({ ...get(), experience }) });
+    await saveToKV(getPortfolioData(get()));
   },
 
-  deleteExperience: (id) => {
+  deleteExperience: async (id) => {
     const experience = get().experience.filter((e) => e.id !== id);
     set({ experience });
-    saveData({ ...getPortfolioData({ ...get(), experience }) });
+    await saveToKV(getPortfolioData(get()));
   },
 
-  updateProjects: (projects) => {
+  updateProjects: async (projects) => {
     set({ projects });
-    saveData({ ...getPortfolioData({ ...get(), projects }) });
+    await saveToKV(getPortfolioData(get()));
   },
 
-  addProject: (project) => {
+  addProject: async (project) => {
     const projects = [...get().projects, project];
     set({ projects });
-    saveData({ ...getPortfolioData({ ...get(), projects }) });
+    await saveToKV(getPortfolioData(get()));
   },
 
-  deleteProject: (id) => {
+  deleteProject: async (id) => {
     const projects = get().projects.filter((p) => p.id !== id);
     set({ projects });
-    saveData({ ...getPortfolioData({ ...get(), projects }) });
+    await saveToKV(getPortfolioData(get()));
   },
 
-  updateEducation: (education) => {
+  updateEducation: async (education) => {
     set({ education });
-    saveData({ ...getPortfolioData({ ...get(), education }) });
+    await saveToKV(getPortfolioData(get()));
   },
 
-  addEducation: (edu) => {
+  addEducation: async (edu) => {
     const education = [...get().education, edu];
     set({ education });
-    saveData({ ...getPortfolioData({ ...get(), education }) });
+    await saveToKV(getPortfolioData(get()));
   },
 
-  deleteEducation: (id) => {
+  deleteEducation: async (id) => {
     const education = get().education.filter((e) => e.id !== id);
     set({ education });
-    saveData({ ...getPortfolioData({ ...get(), education }) });
+    await saveToKV(getPortfolioData(get()));
   },
 
-  updateContact: (contact) => {
+  updateContact: async (contact) => {
     set({ contact });
-    saveData({ ...getPortfolioData({ ...get(), contact }) });
+    await saveToKV(getPortfolioData(get()));
   },
 
-  updateHeroBadges: (heroSkillBadges) => {
+  updateHeroBadges: async (heroSkillBadges) => {
     set({ heroSkillBadges });
-    saveData({ ...getPortfolioData({ ...get(), heroSkillBadges }) });
+    await saveToKV(getPortfolioData(get()));
   },
 
   exportData: () => {
     return JSON.stringify(getPortfolioData(get()), null, 2);
   },
 
-  importData: (jsonString) => {
+  importData: async (jsonString) => {
     try {
       const data = JSON.parse(jsonString) as PortfolioData;
       set(data);
-      saveData(data);
+      await saveToKV(data);
     } catch (e) {
       console.error('Failed to import data:', e);
       throw new Error('Invalid JSON data');
     }
   },
 
-  resetToDefaults: () => {
-    localStorage.removeItem(STORAGE_KEY);
+  resetToDefaults: async () => {
     const data = defaultData as PortfolioData;
     set(data);
+    await saveToKV(data);
   },
 }));
+
